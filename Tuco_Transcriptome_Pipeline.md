@@ -1,4 +1,4 @@
-## Tuco Transcriptome Assembly Pipeline 
+## Tuco-tuco Transcriptome Assembly Pipeline 
 
 ### Initial Quality Check with SolexaQA++ (v3.1.4)
 
