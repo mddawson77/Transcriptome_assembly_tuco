@@ -17,15 +17,15 @@ Trinity --seqType fq --max_memory 40G --trimmomatic --CPU 10 --full_cleanup --ou
 --right /home/molly/tucoKidney/Rcorrect/tuco_kidney.2.cor.fq \
 --quality_trimming_params "ILLUMINACLIP:/opt/trinityrnaseq/trinity-plugins/Trimmomatic/adapters/TruSeq3-PE-2.fa:2:40:15 LEADING:2 TRAILING:2 MINLEN:25"
 ``` 
-### Optimized Assembly Including Quality Check with Transrate (v)
+### Generate Optimized Assembly Including Quality Check with Transrate (v1.0.2)
 ```
-transrate -o assemb_name -t 10 \
+transrate -o tuco_2 -t 10 \
 -a Rcorr_trinity_tucoKidney.Trinity.fasta \
---left /home/molly/tucoKidney/trinity_v2.1.1/Rcorr_trinity_tucoKidney/ \
---right /home/molly/tucoKidney/trinity_v2.1.1/Rcorr_trinity_tucoKidney/ 
+--left /home/molly/tucoKidney/Rcorrect/tuco_kidney.1.cor.fq \
+--right /home/molly/tucoKidney/Rcorrect/tuco_kidney.2.cor.fq  
 ```
 ### Evaluate Original and Optimized Assembly Completeness with BUSCO (v1.1b1)
 ```
-python3 ~/BUSCO_v1.1b1/BUSCO_v1.1b1.py -m trans --cpu 9 -l ~/BUSCO_v1.1b1/vertebrata \
--o assemb_name -in Rcorr_trinity_tucoKidney.Trinity.fasta
+python3 ~/BUSCO_v1.1b1/BUSCO_v1.1b1.py -m trans --cpu 10 -l ~/BUSCO_v1.1b1/vertebrata \
+-o tuco_2 -in Rcorr_trinity_tucoKidney.Trinity.fasta
 ```
