@@ -25,3 +25,7 @@ transrate -o assemb_name -t 10 \
 --right /home/molly/tucoKidney/trinity_v2.1.1/Rcorr_trinity_tucoKidney/ 
 ```
 ### Evaluate Original and Optimized Assembly Completeness with BUSCO (v)
+```
+python3 ~/BUSCO_v1.1b1/BUSCO_v1.1b1.py -m trans --cpu 9 -l ~/BUSCO_v1.1b1/vertebrata \
+-o assemb_name -in Rcorr_trinity_tucoKidney.Trinity.fasta
+```
