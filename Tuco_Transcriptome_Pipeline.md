@@ -17,7 +17,7 @@ Trinity --seqType fq --max_memory 40G --trimmomatic --CPU 10 --full_cleanup --ou
 --right /home/molly/tucoKidney/Rcorrect/tuco_kidney.2.cor.fq \
 --quality_trimming_params "ILLUMINACLIP:/opt/trinityrnaseq/trinity-plugins/Trimmomatic/adapters/TruSeq3-PE-2.fa:2:40:15 LEADING:2 TRAILING:2 MINLEN:25"
 ``` 
-### Generate Optimized Assembly Including Quality Check with Transrate (v1.0.2)
+### Generate Optimized Assembly Including Quality Check with Transrate (v1.0.1)
 ```
 transrate -o tuco_2 -t 10 \
 -a /home/molly/tucoKidney/trinity_v2.1.1/Rcorr_trinity_tucoKidney.Trinity.fasta \
