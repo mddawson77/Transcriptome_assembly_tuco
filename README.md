@@ -1,1 +1,0 @@
-# Transcriptome_assembly_tuco

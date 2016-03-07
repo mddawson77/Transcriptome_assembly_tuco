@@ -19,7 +19,7 @@ Trinity --seqType fq --max_memory 40G --trimmomatic --CPU 10 --full_cleanup --ou
 ``` 
 ### Generate Optimized Assembly Including Quality Check with Transrate (v1.0.1)
 ```
-transrate -o tuco_2 -t 10 \
+transrate -o tuco_2 -t 8 \
 -a /home/molly/tucoKidney/trinity_v2.1.1/Rcorr_trinity_tucoKidney.Trinity.fasta \
 --left /home/molly/tucoKidney/Rcorrect/tuco_kidney.1.cor.fq \
 --right /home/molly/tucoKidney/Rcorrect/tuco_kidney.2.cor.fq  
