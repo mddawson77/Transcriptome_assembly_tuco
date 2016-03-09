@@ -24,10 +24,15 @@ Trinity --seqType fq --max_memory 40G --trimmomatic --CPU 10 --full_cleanup --ou
 --left /home/molly/tucoKidney/Rcorrect/tuco_kidney.1.cor.fq \
 --right /home/molly/tucoKidney/Rcorrect/tuco_kidney.2.cor.fq  
 ```
-### Evaluate Original and Optimized Assembly Completeness with BUSCO (v1.1b1)
+### Evaluate Original Assembly Completeness with BUSCO (v1.1b1)
 ```
 python3 /opt/BUSCO_v1.1b1/BUSCO_v1.1b1.py -m trans --cpu 10 -l /opt/BUSCO_v1.1b1/vertebrata \
 -o tuco_2 -in Rcorr_trinity_tucoKidney.Trinity.fasta
+```
+### Evaluate Optimized Assembly Completeness with BUSCO (v1.1b1)
+```
+python3 /opt/BUSCO_v1.1b1/BUSCO_v1.1b1.py -m trans --cpu 10 -l /opt/BUSCO_v1.1b1/vertebrata \
+-o tuco_2.1 -in ~/tuco_2/Rcorr_trinity_tucoKidney.Trinity/good.Rcorr_trinity_tucoKidney.Trinity.fasta
 ```
 ### Filter and Estimate Expression with Kallisto (v) 
 ```
