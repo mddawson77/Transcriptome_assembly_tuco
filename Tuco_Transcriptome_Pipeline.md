@@ -36,13 +36,13 @@ python3 /opt/BUSCO_v1.1b1/BUSCO_v1.1b1.py -m trans --cpu 10 -l /opt/BUSCO_v1.1b1
 ```
 ### Filter and Estimate Expression with Kallisto (v) 
 ```
-kallisto index -i kallisto.idx Rcorr_trinity_tucoKidney.Trinity.fasta
-kallisto quant -t 10 -i kallisto.idx -o kallisto_orig /home/molly/tucoKidney/Rcorrect/tuco_kidney.1.cor.fq /home/molly/tucoKidney/Rcorrect/tuco_kidney.2.cor.fq
+/usr/local/bin/kallisto index -i kallisto.idx Rcorr_trinity_tucoKidney.Trinity.fasta
+/usr/local/bin/kallisto quant -t 10 -i kallisto.idx -o kallisto_orig /home/molly/tucoKidney/Rcorrect/tuco_kidney.1.cor.fq /home/molly/tucoKidney/Rcorrect/tuco_kidney.2.cor.fq
 ```
-### Filter and Estimate Expression with Salmon (v)
+### Filter and Estimate Expression with Salmon (v0.3.0)
 ```
-~/salmon-0.5.1/bin/salmon index -t Rcorr_trinity_tucoKidney.Trinity.fasta -i salmon.idx --type quasi -k 31
-~/salmon-0.5.1/bin/salmon quant -p 32 -i salmon.idx -l IU -1 /home/molly/tucoKidney/Rcorrect/tuco_kidney.1.cor.fq -2 /home/molly/tucoKidney/Rcorrect/tuco_kidney.2.cor.fq -o salmon_orig
+/opt/salmon-0.5.1/bin index -t Rcorr_trinity_tucoKidney.Trinity.fasta -i salmon.idx --type quasi -k 31
+/opt/salmon-0.5.1/bin quant -p 32 -i salmon.idx -l IU -1 /home/molly/tucoKidney/Rcorrect/tuco_kidney.1.cor.fq -2 /home/molly/tucoKidney/Rcorrect/tuco_kidney.2.cor.fq -o salmon_orig
 ```
 ### Annotate with dammit!
 ```
