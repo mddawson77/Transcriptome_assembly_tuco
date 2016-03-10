@@ -41,8 +41,8 @@ python3 /opt/BUSCO_v1.1b1/BUSCO_v1.1b1.py -m trans --cpu 10 -l /opt/BUSCO_v1.1b1
 ```
 ### Estimate Gene Expression with Salmon (v0.3.0)
 ```
-/opt/salmon-0.5.1/bin index -t Rcorr_trinity_tucoKidney.Trinity.fasta -i salmon.idx --type quasi -k 31
-/opt/salmon-0.5.1/bin quant -p 32 -i salmon.idx -l IU -1 /home/molly/tucoKidney/Rcorrect/tuco_kidney.1.cor.fq -2 /home/molly/tucoKidney/Rcorrect/tuco_kidney.2.cor.fq -o salmon_orig
+/opt/salmon-0.5.1/bin/salmon index -t good.Rcorr_trinity_tucoKidney.Trinity.fasta -i salmon.idx --type quasi -k 31
+/opt/salmon-0.5.1/bin/salmon quant -p 32 -i salmon.idx -l IU -1 /home/molly/tucoKidney/Rcorrect/tuco_kidney.1.cor.fq -2 /home/molly/tucoKidney/Rcorrect/tuco_kidney.2.cor.fq -o salmon_orig
 ```
 ### Filter out Contigs Based on Gene Expression < TPM=1 
 ```
@@ -53,6 +53,11 @@ sed -i ':begin;N;/[ACTGNn-]\n[ACTGNn-]/s/\n//;tbegin;P;D' good.Rcorr_trinity_tuc
 
 for i in $(cat uniq_list);
    do grep --no-group-separator --max-count=1 -A1 -w $i Rcorr_trinity.Trinity.fasta >> Rcorr_highexp.trinity.Trinity.fasta;
+```
+### Generate Optimized Assembly Including Quality Check with Transrate (v1.0.2)
+```
+/opt/transrate-1.02-linux-x86_64 -o tuco_2 -t 8 \
+
 ```
 ### Annotate with dammit!
 ```
