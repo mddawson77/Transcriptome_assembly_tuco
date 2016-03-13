@@ -19,7 +19,7 @@ Trinity --seqType fq --max_memory 40G --trimmomatic --CPU 10 --full_cleanup --ou
 ``` 
 ### Generate Optimized Assembly Including Quality Check with Transrate (v1.0.2)
 ```
-/opt/transrate-1.02-linux-x86_64 -o tuco_2 -t 8 \
+/opt/transrate-1.0.2-linux-x86_64/transrate -o tuco_2 -t 8 \
 -a /home/molly/tucoKidney/trinity_v2.1.1/Rcorr_trinity_tucoKidney.Trinity.fasta \
 --left /home/molly/tucoKidney/Rcorrect/tuco_kidney.1.cor.fq \
 --right /home/molly/tucoKidney/Rcorrect/tuco_kidney.2.cor.fq  
@@ -46,22 +46,37 @@ python3 /opt/BUSCO_v1.1b1/BUSCO_v1.1b1.py -m trans --cpu 10 -l /opt/BUSCO_v1.1b1
 ```
 ### Filter out Contigs Based on Gene Expression < TPM=1 
 ```
-awk '1>$5{next}1' kallisto_orig/abundance.tsv | awk '{print $1}' > kallist
-awk '1>$3{next}1' salmon_orig/quant.sf | sed  '1,10d' | awk '{print $1}' > salist
+awk '1>$5{next}1' /home/molly/tucoKidney/kallisto_v0.42.4/kallisto_orig/abundance.tsv | awk '{print $1}' > kallist
+awk '1>$3{next}1' /home/molly/tucoKidney/salmon_v0.3.0/salmon_orig/quant.sf | sed  '1,10d' | awk '{print $1}' > salist
 cat kallist salist | sort -u > uniq_list
 sed -i ':begin;N;/[ACTGNn-]\n[ACTGNn-]/s/\n//;tbegin;P;D' good.Rcorr_trinity_tucoKidney.Trinity.fasta
 
 for i in $(cat uniq_list);
-   do grep --no-group-separator --max-count=1 -A1 -w $i Rcorr_trinity.Trinity.fasta >> Rcorr_highexp.trinity.Trinity.fasta;
+   do grep --no-group-separator --max-count=1 -A1 -w $i good.Rcorr_trinity_tucoKidney.Trinity.fasta >> Rcorr_highexp.trinity.Trinity.fasta; done
 ```
-### Generate Optimized Assembly Including Quality Check with Transrate (v1.0.2)
-```
-/opt/transrate-1.02-linux-x86_64 -o tuco_2 -t 8 \
 
+### Generate 2nd Optimized Assembly Including Quality Check with Transrate (v1.0.2)
+```
+/opt/transrate-1.0.2-linux-x86_64/transrate -o tuco_3 -t 8 \
+-a /home/molly/tucoKidney/TPM/Rcorr_highexp.trinity.Trinity.fasta \
+--left /home/molly/tucoKidney/Rcorrect/tuco_kidney.1.cor.fq \
+--right /home/molly/tucoKidney/Rcorrect/tuco_kidney.2.cor.fq  
+
+```
+
+### Evaluate Kallisto and Salmon Filtration Assembly Completeness with BUSCO (v1.1b1)
+```
+python3 /opt/BUSCO_v1.1b1/BUSCO_v1.1b1.py -m trans --cpu 10 -l /opt/BUSCO_v1.1b1/vertebrata \
+-o tuco_3 -in
+```
+### Evaluate 2nd Optimized Assembly Completeness with BUSCO (v1.1b1)
+```
+python3 /opt/BUSCO_v1.1b1/BUSCO_v1.1b1.py -m trans --cpu 10 -l /opt/BUSCO_v1.1b1/vertebrata \
+-o tuco_3.1 -in
 ```
 ### Annotate with dammit!
 ```
 mkdir /mnt/dammit/ && cd /mnt/dammit
-dammit databases --install --database-dir /mnt/dammit --full --busco-group metazoa
-dammit annotate assembly.fasta --busco-group metazoa --n_threads 10 --database-dir /mnt/dammit/ --full
+dammit databases --install --database-dir /mnt/dammit --full --busco-group vertebrata
+dammit annotate assembly.fasta --busco-group vertebrata --n_threads 10 --database-dir /mnt/dammit/ --full
 ```
