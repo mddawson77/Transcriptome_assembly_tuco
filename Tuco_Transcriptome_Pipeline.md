@@ -37,12 +37,12 @@ python3 /opt/BUSCO_v1.1b1/BUSCO_v1.1b1.py -m trans --cpu 10 -l /opt/BUSCO_v1.1b1
 ##Continue Pipeline with Optimized Assembly
 ### Estimate Gene Expression with Kallisto (v0.42.4) 
 ```
-/usr/local/bin/kallisto index -i kallisto.idx good.Rcorr_trinity_tucoKidney.Trinity.fasta
+/usr/local/bin/kallisto index -i kallisto.idx /home/molly/tucoKidney/transrate_v1.0.2/tuco_1/Rcorr_trinity_tucoKidney.Trinity/good.Rcorr_trinity_tucoKidney.Trinity.fasta
 /usr/local/bin/kallisto quant -t 10 -i kallisto.idx -o kallisto_orig /home/molly/tucoKidney/Rcorrect/tuco_kidney.1.cor.fq /home/molly/tucoKidney/Rcorrect/tuco_kidney.2.cor.fq
 ```
 ### Estimate Gene Expression with Salmon (v0.3.0)
 ```
-/opt/salmon-0.5.1/bin/salmon index -t good.Rcorr_trinity_tucoKidney.Trinity.fasta -i salmon.idx --type quasi -k 31
+/opt/salmon-0.5.1/bin/salmon index -t /home/molly/tucoKidney/transrate_v1.0.2/tuco_1/Rcorr_trinity_tucoKidney.Trinity/good.Rcorr_trinity_tucoKidney.Trinity.fasta -i salmon.idx --type quasi -k 31
 /opt/salmon-0.5.1/bin/salmon quant -p 32 -i salmon.idx -l IU -1 /home/molly/tucoKidney/Rcorrect/tuco_kidney.1.cor.fq -2 /home/molly/tucoKidney/Rcorrect/tuco_kidney.2.cor.fq -o salmon_orig
 ```
 ### Filter out Contigs Based on Gene Expression < TPM=1 
@@ -65,7 +65,7 @@ for i in $(cat uniq_list);
 
 ```
 
-### Evaluate Kallisto and Salmon Filtration Assembly Completeness with BUSCO (v1.1b1)
+### Evaluate TPM Filtration Assembly Completeness with BUSCO (v1.1b1)
 ```
 python3 /opt/BUSCO_v1.1b1/BUSCO_v1.1b1.py -m trans --cpu 10 -l /opt/BUSCO_v1.1b1/vertebrata \
 -o tuco_2 -in /home/molly/tucoKidney/TPM/TPM_1/Rcorr_highexp.trinity.Trinity.fasta 
@@ -96,15 +96,16 @@ sed -i ':begin;N;/[ACTGNn-]\n[ACTGNn-]/s/\n//;tbegin;P;D' /home/molly/tucoKidney
 for i in $(cat uniq_list);
    do grep --no-group-separator --max-count=1 -A1 -w $i /home/molly/tucoKidney/trinity_v2.1.1/Rcorr_trinity_tucoKidney.Trinity.fasta >> Rcorr_highexp.trinity.Trinity.fasta; done
 ```
+
 ### Generate Optimized Assembly Including Quality Check with Transrate (v1.0.1)
 ```
-/opt/transrate-1.0.1-linux-x86_64/transrate -o tuco_3 -t 8 \
+/opt/transrate-1.0.1-linux-x86_64/transrate -o tuco_3 -t 10 \
 -a /home/molly/tucoKidney/TPM/TPM_2/Rcorr_highexp.trinity.Trinity.fasta \
 --left /home/molly/tucoKidney/Rcorrect/tuco_kidney.1.cor.fq \
 --right /home/molly/tucoKidney/Rcorrect/tuco_kidney.2.cor.fq 
 ```
 
-### Evaluate Kallisto and Salmon Filtration Assembly Completeness with BUSCO (v1.1b1)
+### Evaluate TPM Filtration Assembly Completeness with BUSCO (v1.1b1)
 ```
 python3 /opt/BUSCO_v1.1b1/BUSCO_v1.1b1.py -m trans --cpu 10 -l /opt/BUSCO_v1.1b1/vertebrata \
 -o tuco_3 -in /home/molly/tucoKidney/TPM/TPM_2/Rcorr_highexp.trinity.Trinity.fasta 
