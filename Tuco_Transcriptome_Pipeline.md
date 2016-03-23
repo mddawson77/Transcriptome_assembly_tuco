@@ -119,9 +119,9 @@ python3 /opt/BUSCO_v1.1b1/BUSCO_v1.1b1.py -m trans --cpu 10 -l /opt/BUSCO_v1.1b1
 
 ### Compare all Metrics and Scores to Determine Best Assembly
 
-### Annotate with dammit!
+### Annotate with dammit (0.2.7.1)
 ```
 mkdir /mnt/dammit/ && cd /mnt/dammit
 dammit databases --install --database-dir /mnt/dammit --full --busco-group vertebrata
-dammit annotate assembly.fasta --busco-group vertebrata --n_threads 10 --database-dir /mnt/dammit/ --full
+dammit annotate /home/molly/tucoKidney/transrate_v1.0.2/tuco_1/Rcorr_trinity_tucoKidney.Trinity/good.Rcorr_trinity_tucoKidney.Trinity.fasta --busco-group vertebrata --n_threads 10 --database-dir /mnt/dammit/ --full
 ```
