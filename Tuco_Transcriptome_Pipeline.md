@@ -119,7 +119,7 @@ python3 /opt/BUSCO_v1.1b1/BUSCO_v1.1b1.py -m trans --cpu 10 -l /opt/BUSCO_v1.1b1
 
 ### Compare all Metrics and Scores to Determine Best Assembly
 
-### Annotate with dammit (0.2.7.1)
+### Annotate with dammit (v0.2.7.1)
 ```
 mkdir /mnt/dammit/ && cd /mnt/dammit
 dammit databases --install --database-dir /mnt/dammit --full --busco-group vertebrata
