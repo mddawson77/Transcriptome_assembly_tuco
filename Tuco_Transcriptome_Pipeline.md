@@ -125,6 +125,6 @@ dammit annotate /home/molly/tucoKidney/transrate_v1.0.2/tuco_1/Rcorr_trinity_tuc
 --user-databases /data/dammit_databases/tcdb.fasta  \
 --busco-group vertebrata \
 --n_threads 12 \
-— full \\
+--full \
 --database-dir /data/dammit_databases/
 ```
